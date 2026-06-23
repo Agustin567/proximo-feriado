@@ -1,0 +1,53 @@
+importar { Terminal } desde "@es-js/terminal"
+
+asincrono funcion validarSecretoLocal(dni, secreto) {
+  Terminal.escribir("Validando secreto para el DNI " + dni + "...")
+  retornar secreto === "hola-123" || secreto === "oviedo-perero-414"
+}
+
+asincrono funcion obtenerFeriadosLocal() {
+  retornar [
+    {
+      "fecha": "2026-07-09",
+      "motivo": "Día de la Independencia",
+      "tipo": "inamovible"
+    }
+  ]
+}
+
+funcion calcularProximoFeriadoLocal(listaFeriados) {
+  retornar listaFeriados[0]
+}
+
+asincrono funcion inicio() {
+  Terminal.escribir("Hola! Ingresa la palabra secreta:")
+
+  var secreto = esperar Terminal.leer()
+
+  var dni = "46005414"
+
+  si (esperar validarSecretoLocal(dni, secreto)) {
+    esperar mostrarProximoFeriado()
+  } sino {
+    Terminal.escribir("Palabra secreta inválida")
+  }
+
+  Terminal.escribir("Presiona ENTER para volver a ingresar")
+
+  esperar Terminal.leerEnter()
+
+  Terminal.limpiar()
+
+  inicio()
+}
+
+asincrono funcion mostrarProximoFeriado() {
+  var feriados = esperar obtenerFeriadosLocal()
+    
+  var proximoFeriado = calcularProximoFeriadoLocal(feriados)
+    
+  Terminal.escribir("El próximo feriado es: " + proximoFeriado.motivo)
+  Terminal.escribir("Fecha: " + proximoFeriado.fecha)
+}
+
+inicio()
